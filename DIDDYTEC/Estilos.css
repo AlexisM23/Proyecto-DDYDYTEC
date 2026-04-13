@@ -1,0 +1,643 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* GENERAL */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5f6fa;
+    color: #333;
+}
+
+/* HEADER */
+header {
+    background: white;
+    color: black;
+    padding: 16px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* TITULOS */
+h2 {
+    color: #fcf6f6;
+    margin-bottom: 20px;
+    text-align: center;
+}
+h3 {
+    color: brown;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* IMAGENES GENERALES (NO AFECTAR CARDS) */
+img {
+    max-width: 100%;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.modal-contenido {
+    background: white;
+    width: 320px;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 12px;
+    animation: aparecer 0.3s ease;
+}
+
+
+@keyframes aparecer {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.cerrar {
+    float: right;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* INPUTS */
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-color: #0000ff;
+}
+
+/* BOTONES */
+button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(45deg, #0000ff, #0000ff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #2c3e50;
+    color: white;
+    position: fixed;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    color: white;
+}
+
+.sidebar a {
+    display: block;
+    color: #ecf0f1;
+    padding: 12px;
+    margin: 5px 0;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.sidebar a:hover {
+    background: #34495e;
+}
+
+/* CONTENIDO */
+.contenido {
+    margin-left: 240px;
+    padding: 20px;
+}
+
+/* GRID DE PRODUCTOS */
+.contenedor {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* TEXTO CARD */
+.card h3 {
+    margin: 10px 0 5px;
+}
+
+.card p {
+    margin: 5px 0;
+    color: #666;
+}
+
+/* PRECIO */
+.precio {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0000ff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .contenido {
+        margin-left: 0;
+    }
+}
+/* --- ESTILOS PARA LA VISTA DEL CLIENTE --- */
+
+/* Base y Fuente */
+.body-cliente {
+    font-family: 'Poppins', sans-serif; /* Requiere la fuente de Google */
+    background-color: #f8f9fa; /* Un gris muy claro de fondo */
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+/* Encabezado */
+.header-cliente {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 30px 0;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.titulo-menu {
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0;
+    color: #2c3e50;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.subtitulo-menu {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+/* Contenedor Grid (El secreto del diseño) */
+.contenedor-grid {
+    display: grid;
+    /* Crea columnas automáticas de mínimo 280px */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; /* Espacio entre tarjetas */
+    max-width: 1200px;
+    margin: 0 auto; /* Centra el grid en la pantalla */
+}
+
+/* La Tarjeta de Producto */
+.producto-card {
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden; /* Corta lo que se salga de la tarjeta */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Alinea el contenido hacia abajo */
+}
+
+/* Efecto al pasar el mouse */
+.producto-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* Recipiente de la imagen (mismo tamaño para todas) */
+/* Busca .imagen-recipiente y reemplázalo por esto */
+.imagen-recipiente {
+    width: 100%;
+    /* 1. Mantenemos una altura constante para la tarjeta */
+    height: 250px; 
+    /* 2. El fondo blanco hace que las imágenes con transparencias o bordes blancos se integren mejor */
+    background-color: #fff; 
+    display: flex;
+    justify-content: center; /* Centramos horizontalmente */
+    align-items: center; /* Centramos verticalmente */
+    padding: 10px; /* Un poco de margen para que la imagen no toque los bordes */
+}
+
+/* Busca .producto-card img y reemplázalo por esto */
+.producto-card img {
+    /* 3. CLAVE: No forzamos un ancho o alto exacto */
+    max-width: 100%; /* La imagen no será más ancha que su contenedor */
+    max-height: 100%; /* La imagen no será más alta que el recipiente de 250px */
+    
+    /* 4. IMPORTANTE: Cambiamos 'cover' por 'contain' */
+    object-fit: contain; /* La imagen se ajustará para verse completa dentro del espacio, sin cortarse */
+    
+    /* Eliminamos el height: 100% y width: 100% que teníamos antes */
+    transition: transform 0.5s ease;
+}
+
+/* Pequeño zoom en la imagen al hacer hover */
+.producto-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Info del Producto */
+.info-producto {
+    padding: 20px;
+    flex-grow: 1; /* Empuja el precio hacia abajo */
+    display: flex;
+    flex-direction: column;
+}
+
+.marca-badge {
+    background-color: #e6f7ff;
+    color: #1890ff;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 10px;
+    align-self: flex-start;
+}
+
+.info-producto h3 {
+    font-size: 1.4rem;
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+}
+
+.descripcion-corta {
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+    flex-grow: 1; /* Hace que todas las descripciones ocupen el mismo espacio vertical */
+}
+
+/* Fila Inferior (Precio y Botón) */
+.fila-precio-accion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Se pega al fondo de la tarjeta */
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.precio-destacado {
+    font-size: 1.8rem;
+    color: #2ecc71; /* Color verde para el precio */
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Botón Mejorado */
+.btn-agregar {
+    background-color: #e74c3c; /* Color rojo */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-agregar:hover {
+    background-color: #c0392b; /* Rojo más oscuro al hover */
+}
+
+/* Mensaje si no hay productos */
+.sin-productos {
+    grid-column: 1 / -1; /* Ocupa todo el ancho del grid */
+    text-align: center;
+    padding: 50px;
+    background: #fff;
+    border-radius: 15px;
+    color: #7f8c8d;
+    font-style: italic;
+}
+.barra-carrito {
+    background: #2c3e50;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 20px;
+}
+
+.btn-ver-carrito {
+    background: #2ecc71;
+    color: white;
+    text-decoration: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+/* Centrar textos en la tabla para que no se peguen */
+.text-center {
+    text-align: center;
+    padding: 10px 20px; /* Espaciado extra entre columnas */
+}
+
+/* Botón de eliminar (basura) */
+.btn-eliminar {
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #e74c3c;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.btn-eliminar:hover {
+    background: #fdeaea;
+}
+
+/* Ajuste de la tabla para dar más aire */
+.tabla-pedido th, .tabla-pedido td {
+    padding: 15px 25px; /* Más espacio horizontal */
+}
+
+.fila-resumen.total {
+    margin-top: 20px;
+    font-size: 1.6rem;
+    color: #2c3e50;
+    border-top: 2px solid #eee;
+    padding-top: 15px;
+}
+/* FONDO DE CAFETERÍA PARA LOGIN */
+.body-login {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Imagen de fondo profesional de cafetería */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=2078&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Ajuste del contenedor del login para que resalte sobre el fondo */
+.login-container {
+    background: rgba(255, 255, 255, 0.9); /* Blanco con ligera transparencia */
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    backdrop-filter: blur(5px); /* Efecto de vidrio esmerilado */
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Opcional: Cambiar el color del botón para que combine con el café */
+.body-login button {
+    background: linear-gradient(45deg, #6F4E37, #A67B5B); /* Colores café */
+    border: none;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.body-login button:hover {
+    background: linear-gradient(45deg, #513624, #6F4E37);
+}
+/* CONTENEDOR DE LA SECCIÓN */
+.contenedor-caja {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* TABLA DE PEDIDOS */
+.tabla-pedidos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.tabla-pedidos thead {
+    background-color: #3E2723; /* Café muy oscuro */
+    color: #fff;
+}
+
+.tabla-pedidos th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.tabla-pedidos td {
+    padding: 15px;
+    border-bottom: 1px solid #efebe9;
+    color: #4e342e;
+    vertical-align: middle;
+}
+
+/* EFECTO HOVER EN FILAS */
+.tabla-pedidos tr:hover {
+    background-color: #fdf5e6; /* Color crema suave al pasar el mouse */
+}
+
+/* BADGE DE ESTADO */
+.estado-pendiente {
+    background-color: #fff3e0;
+    color: #ef6c00;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 1px solid #ffe0b2;
+}
+
+/* BOTONES DE ACCIÓN */
+.btn-accion {
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: 0.3s;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.ver-detalle {
+    background-color: #efebe9;
+    color: #5d4037;
+}
+
+.marcar-pagado {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.btn-accion:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.marcar-pagado:hover {
+    background-color: #27ae60;
+}
+/* CONTENEDOR PRINCIPAL DEL DETALLE */
+.detalle-pedido-modal {
+    max-width: 800px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* TARJETA QUE CONTIENE LA TABLA */
+.card-detalle-productos {
+    background: #fdfaf6; /* Fondo crema muy suave */
+    border: 1px solid #e0d7d0;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* LA TABLA DE PRODUCTOS */
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tabla-admin th {
+    border-bottom: 2px solid #6F4E37; /* Línea café */
+    padding: 10px;
+    text-align: left;
+    color: #5D4037;
+    font-size: 0.9rem;
+}
+
+.tabla-admin td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+/* SECCIÓN DEL TOTAL AL FINAL */
+.total-pedido-detalles {
+    text-align: right;
+    padding: 20px;
+    background: #3E2723; /* Café oscuro */
+    color: white;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
+
+.total-pedido-detalles span {
+    font-weight: 300;
+    margin-right: 15px;
+}
+
+.total-pedido-detalles strong {
+    color: #2ecc71; /* Verde brillante para el monto */
+}
+
+/* ALINEACIÓN DE TEXTO */
+.text-center {
+    text-align: center;
+}
+.btn-logout {
+    background-color: #d32f2f;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-logout:hover {
+    background-color: #b71c1c;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+.btn-logout-cliente {
+    background-color: #6F4E37; /* Color café */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s;
+}
+
+.btn-logout-cliente:hover {
+    background-color: #3E2723; /* Café más oscuro al pasar el mouse */
+}
