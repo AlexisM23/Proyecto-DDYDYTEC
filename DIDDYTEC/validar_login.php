@@ -1,45 +1,42 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+session_start();
 include "conexion.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // 1. Limpiamos los datos para evitar errores de espacios
     $user_input = trim($_POST["usuario"]); 
     $pass_input = trim($_POST["password"]);
     $tipo_input = trim($_POST["tipo_usuario"]);
 
-    // 2. Usamos una consulta que busque tanto por ID como por NOMBRE
-    // Esto es más seguro y fácil para ti
-    $sql = "SELECT * FROM usuarios WHERE (id_usuario = ? OR nombre = ?) AND password = ? AND tipo_usuario = ?";
+    // Buscamos al usuario por ID o Nombre (SIN la contraseña en el SQL)
+    $sql = "SELECT * FROM usuarios WHERE id_usuario = ? OR nombre = ?";
     $stmt = $conexion->prepare($sql);
-    
-    // Aquí le pasamos el dato dos veces (para id y para nombre)
-    $stmt->bind_param("ssss", $user_input, $user_input, $pass_input, $tipo_input);
+    $stmt->bind_param("ss", $user_input, $user_input);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        $datos = $result->fetch_assoc(); 
+    if ($datos = $result->fetch_assoc()) {
+        // VERIFICACIÓN: ¿La clave coincide con el hash?
+        if (password_verify($pass_input, $datos['password'])) {
+            
+            // ¿El tipo de usuario es correcto?
+            if ($datos['tipo_usuario'] == $tipo_input) {
+                $_SESSION['id_usuario'] = $datos['id_usuario']; 
+                $_SESSION['nombre'] = $datos['nombre'];
+                $_SESSION['tipo'] = $datos['tipo_usuario'];
 
-        // Guardamos en la sesión
-        $_SESSION['id_usuario'] = $datos['id_usuario']; 
-        $_SESSION['nombre'] = $datos['nombre'];
-        $_SESSION['tipo'] = $datos['tipo_usuario'];
-
-        // Redirección
-        if($tipo_input == "admin") {
-            header("Location: admin/index_admin.php");
-        } elseif($tipo_input == "caja") {
-            header("Location: caja/index_pedido.php");
+                // Redirección según tu estructura en la imagen
+                if($tipo_input == "admin") header("Location: admin/index_admin.php");
+                elseif($tipo_input == "caja") header("Location: caja/index_pedido.php");
+                else header("Location: cliente/index_cliente.php");
+                exit();
+            } else {
+                die("Error: El usuario existe y la clave es correcta, pero el TIPO no es " . $tipo_input);
+            }
         } else {
-            header("Location: cliente/index_cliente.php");
+            die("Error: La contraseña no coincide con el hash guardado en la base de datos.");
         }
-        exit();
     } else {
-        // Si falla, te manda de regreso
-        echo "<script>alert('ERROR: Usuario, contraseña o tipo de cuenta incorrectos'); window.location.href='pagprincipal.php';</script>";
+        die("Error: No existe ningún usuario con el ID o Nombre: " . $user_input);
     }
 }
 ?>

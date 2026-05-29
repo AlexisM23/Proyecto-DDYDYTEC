@@ -7,35 +7,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $pass_form = trim($_POST["password"]);
     $tipo_form = $_POST["tipo_usuario"];
 
-    $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE nombre=? AND password=? AND tipo_usuario=?");
+    // 1. Buscamos al usuario SOLO por su nombre y tipo
+    // Eliminamos 'password=?' de la consulta SQL
+    $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE nombre=? AND tipo_usuario=?");
     
     if ($stmt) {
-        $stmt->bind_param("sss", $usuario_form, $pass_form, $tipo_form);
+        $stmt->bind_param("ss", $usuario_form, $tipo_form);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0){
             $datos = $result->fetch_assoc(); 
 
-            $_SESSION['id_usuario'] = $datos['id_usuario']; 
-            $_SESSION['nombre'] = $datos['nombre'];
-            $_SESSION['tipo'] = $datos['tipo_usuario']; // Guardamos el tipo por seguridad
+            // 2. USAMOS password_verify para comparar el texto plano con el hash de la BD
+            if (password_verify($pass_form, $datos['password'])) {
+                
+                $_SESSION['id_usuario'] = $datos['id_usuario']; 
+                $_SESSION['nombre'] = $datos['nombre'];
+                $_SESSION['tipo'] = $datos['tipo_usuario'];
 
-            // CORRECCIÓN DE RUTAS: 
-            // Como este archivo está en la raíz, entramos directo a las carpetas
-            if($tipo_form == "admin"){
-                header("Location: admin/index_admin.php");
-            } elseif($tipo_form == "caja"){
-                header("Location: caja/index_pedido.php");
+                if($tipo_form == "admin"){
+                    header("Location: admin/index_admin.php");
+                } elseif($tipo_form == "caja"){
+                    header("Location: caja/index_pedido.php");
+                } else {
+                    header("Location: cliente/index_cliente.php");
+                }
+                exit();
             } else {
-                header("Location: cliente/index_cliente.php");
+                // Si la contraseña no coincide con el hash
+                echo "<script>alert('Error: Contraseña incorrecta'); window.location.href='login.php';</script>";
             }
-            exit();
         } else {
-            echo "<script>
-                    alert('Error: Datos incorrectos para el usuario: " . htmlspecialchars($usuario_form) . "');
-                    window.location.href='login.php';
-                  </script>";
+            // Si no existe el usuario con ese nombre y ese tipo
+            echo "<script>alert('Error: Usuario no encontrado o tipo de cuenta incorrecto'); window.location.href='login.php';</script>";
         }
         $stmt->close();
     } else {
@@ -43,23 +48,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 ?>
-<?php
-include "conexion.php";
-
-// Solo inicia la sesión si no hay una activa para evitar el error visual
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Login - DIDDYTEC</title>
-    <link rel="stylesheet" href="Estilos.css"> </head>
+    <link rel="stylesheet" href="Estilos.css">
+</head>
 <body class="body-login">
     <div class="contenedor-login">
-        <form action="login.php" method="POST"> <h2>☕ Iniciar Sesión</h2>
+        <form action="login.php" method="POST"> 
+            <h2>☕ Iniciar Sesión</h2>
             <input type="text" name="usuario" placeholder="Usuario" required>
             <input type="password" name="password" placeholder="Contraseña" required>
             

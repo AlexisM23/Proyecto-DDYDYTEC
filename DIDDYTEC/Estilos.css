@@ -25,7 +25,7 @@ header {
 
 /* TITULOS */
 h2 {
-    color: #fcf6f6;
+    color: #151414;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -640,4 +640,216 @@ button:hover {
 
 .btn-logout-cliente:hover {
     background-color: #3E2723; /* Café más oscuro al pasar el mouse */
+}
+/* Contenedor de la tabla */
+.contenedor-lista {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.tabla-productos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.tabla-productos th, .tabla-productos td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla-productos th {
+    background-color: #f8f9fa;
+    color: #0e0000;
+}
+
+/* Imagen pequeña al lado */
+.img-miniatura {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
+
+/* Estilos para los enlaces de acción */
+.link-editar {
+    color: #0000ff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.link-eliminar {
+    color: #ff0000;
+    text-decoration: none;
+}
+
+.link-editar:hover, .link-eliminar:hover {
+    text-decoration: underline;
+}
+/* Estilos para el botón de confirmar en el carrito */
+.contenedor-confirmar {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.btn-confirmar {
+    display: inline-block;
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: white !important;
+    text-decoration: none !important;
+    padding: 14px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-confirmar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+    filter: brightness(1.05);
+}
+
+.btn-confirmar i {
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+}
+/* Estilos para la Tabla de Usuarios */
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-top: 20px;
+}
+
+.tabla-admin th {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 2px solid #eee;
+}
+
+.tabla-admin td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+/* Badges de Roles */
+.badge-rol {
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.badge-admin { background: #ffebee; color: #c62828; }
+.badge-caja { background: #e3f2fd; color: #1565c0; }
+.badge-cliente { background: #f1f8e9; color: #2e7d32; }
+
+/* Botones de Acción */
+.btn-accion {
+    padding: 6px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 0 3px;
+    transition: 0.3s;
+}
+.btn-accion.edit { color: #f39c12; background: #fef5e7; }
+.btn-accion.delete { color: #e74c3c; background: #fdedec; }
+.btn-accion:hover { filter: brightness(0.9); transform: scale(1.1); }
+/* Contenedor para alinear botones */
+.acciones-flex {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Base de los botones de la tabla */
+.btn-tabla {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Botón Editar (Naranja/Ámbar) */
+.btn-editar {
+    background-color: #f39c12;
+    color: white !important;
+}
+
+.btn-editar:hover {
+    background-color: #e67e22;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(243, 156, 18, 0.3);
+}
+
+/* Botón Borrar (Rojo) */
+.btn-borrar {
+    background-color: #e74c3c;
+    color: white !important;
+}
+
+.btn-borrar:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+/* ==========================================================================
+   CORRECCIÓN DE ALINEACIÓN SIMÉTRICA PARA GESTIÓN DE PRODUCTOS
+   ========================================================================== */
+
+/* 1. Forzar a que los encabezados y celdas de datos compartan el centro */
+table.tabla-admin th, 
+table.tabla-admin td {
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 14px 18px !important;
+}
+
+/* 2. Mantener la fila de encabezados con una estructura limpia y estilizada */
+table.tabla-admin th {
+    background-color: #f8f9fa !important;
+    color: #333333 !important;
+    font-weight: 600 !important;
+}
+
+/* 3. Asegurar que el contenedor de imágenes no se cargue hacia la izquierda */
+.td-imagen-container {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 50px;
+    height: 50px;
+}
+
+/* 4. Alinear los botones circulares en el centro vertical exacto */
+.acciones-flex {
+    display: inline-flex !important;
+    gap: 10px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100%;
+}
+
+/* 5. Asegurar que las miniaturas no se deformen */
+.td-imagen-container img {
+    border-radius: 6px;
+    object-fit: contain;
 }
